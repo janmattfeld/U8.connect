@@ -15,9 +15,21 @@
 const db = require('../database/dbinterface')
 
 module.exports = (app) => {
-    app.get('/users', (req, res) => {
-      const userId = 1;
+    app.get('/getUser/:userId', (req, res) => {
+      const userId = req.params.userId;
         db.getUser(userId)
+          .then( (result) => {
+            res.send(result)
+          })
+          .catch( (error) => {
+            console.log(error)
+            res.send(null)
+          })
+    })
+
+    app.get('/addUser', (req, res) => {
+      const userInfo = req.body;
+        db.addUser(userInfo)
           .then( (result) => {
             res.send(result)
           })

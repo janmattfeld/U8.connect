@@ -1,6 +1,6 @@
 {
   "postgres": {
-    "url": "postgres://gbolzzkcofjrit:7OKKhif4SIjy90vpi03zGlFNg2@ec2-176-34-113-15.eu-west-1.compute.amazonaws.com:5432/d3u3cv0hkgvf8h",
-    "database": "d3u3cv0hkgvf8h"
+    "url": "postgres://qliopunu:Ajx2uVjh_9UluExz4MkysHAbroR2xLeb@qdjjtnkv.db.elephantsql.com:5432/qliopunu",
+    "database": "qliopunu"
   }
 }

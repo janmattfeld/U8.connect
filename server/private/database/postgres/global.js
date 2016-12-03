@@ -1,14 +1,14 @@
 'use strict'
 const config = require( __dirname + '/../dbconfig.json').postgres
 
-const db  = require('pg')
+const pg  = require('pg')
 const q   = require('q')
 
 //Tables
 let tables = {
-  users: config.database + '.Users',
-  tags: config.database + '.Tags',
-  routes: config.database + '.Routes'
+  users: 'Users',
+  tags: 'Tags',
+  routes: 'Routes'
 }
 
 module.exports = {
@@ -17,19 +17,24 @@ module.exports = {
   tables: tables
 }
 
+
+var client = new pg.Client(config.url)
+
 function connect() {
   var deferred = q.defer()
   console.log('Trying to connect...')
   console.log('Waiting')
   console.log(config.url)
-  db.defaults.ssl = true
-  db.connect(config.url, function(err, client) {
+
+
+  // connect to our database
+  client.connect(function (err) {
     if (err) {
       console.error('error connecting: ' + err.stack)
       deferred.reject(err)
     } else {
-      module.exports.instance = client
       console.log('Connected to postgres!')
+      module.exports.instance = client
       deferred.resolve()
     }
   });
@@ -40,8 +45,8 @@ function connect() {
 function createDatabase(){
   const deferred = q.defer()
 
-  const query = pg.query(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
-  query.on('end', () => { client.end(); });
+  /*const query = client.query(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
+  query.on('end', () => { client.end(); });*/
   deferred.resolve()
 
   return deferred.promise
@@ -51,25 +56,25 @@ function createDatabase(){
 function createUsersTable() {
   // TODO: Replace long type with DateTime
   return createTable(tables.users, [
-    'id int KEY AUTO_INCREMENT',
-    'first_name text',
-    'last_name text',
-    'nick_name text',
-    'sex int',
-    'email text',
-    'password text',
-    'registered_since long',
-    'birthday long',
-    'longterm_tags text',
-    'middleterm_tags text',
-    'shortterm_tags text',
-    'current_route text'
+  'id serial',
+  'first_name text',
+  'last_name text',
+  'nick_name text',
+  'sex smallint',
+  'email text',
+  'password text',
+  'registered_since integer',
+  'birthday integer',
+  'longterm_tags text',
+  'middleterm_tags text',
+  'shortterm_tags text',
+  'current_route text'
   ])
 }
 
 function createTagsTable() {
   return createTable(tables.tags, [
-    'id int KEY AUTO_INCREMENT',
+    'id serial',
     'tag_name varchar(128)'
   ])
 }
@@ -77,11 +82,11 @@ function createTagsTable() {
 function createRoutesTable() {
   // TODO: Replace long type with DateTime
   return createTable(tables.routes, [
-    'id int KEY AUTO_INCREMENT',
+    'id serial',
     'vehicle_name text',
     'route_name text',
-    'time_start long',
-    'time_end long',
+    'time_start integer',
+    'time_end integer',
     'tags text',
     'tags_amount text'
   ])
@@ -92,13 +97,15 @@ function createTable(tableName, columns){
   const tableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (
     ${columns.join(',\n')}
   )`
-  pg.query(tableQuery, (err, result) => {
+  console.log(tableQuery);
+  client.query((tableQuery), (err, result) => {
     if (err) {
       deferred.reject(err)
     } else {
       deferred.resolve()
     }
   })
+
   return deferred.promise
 }
 
@@ -110,7 +117,6 @@ function setupDatabase () {
     .then(createRoutesTable)
     .then(() => {
       console.info("Connected to Database")
-      return pg
     })
     .catch((err) => {
       console.error("Database Error: ", err)

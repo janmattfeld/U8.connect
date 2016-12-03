@@ -8,10 +8,13 @@ module.exports = {
   insert: insertUser,
 }
 
-function getUser(userId) {
+function getTags(tags) {
   const deferred = q.defer()
-  console.log(userId)
-  let query = `SELECT * FROM ${global.tables.users} WHERE id = ` + userId
+  console.log(tags)
+  let query = `SELECT * FROM ${global.tables.tags} WHERE id IN (
+    ${tags.join(', \n')}
+  )`
+
   console.log(query)
   global.instance.query(query, function (err, result) {
     if (err) {
