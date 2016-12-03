@@ -5,13 +5,15 @@ const mysql = require('pg')
 
 module.exports = {
   get: getUser,
-  add: addUser,
+  insert: insertUser,
 }
 
-function getUser(userId) {
+function getRoutes(Routes) {
   const deferred = q.defer()
-  console.log(userId)
-  let query = `SELECT * FROM ${global.tables.users} WHERE id = ` + userId
+  console.log(routeId)
+  let query = `SELECT * FROM ${global.tables.routes} WHERE id IN (
+    ${tags.join(', \n')}
+  )`
   console.log(query)
   global.instance.query(query, function (err, result) {
     if (err) {
@@ -28,16 +30,16 @@ function getUser(userId) {
   return deferred.promise
 }
 
-function addUser(user) {
+function insertRoutes(user) {
   const deferred = q.defer()
-  const sqlQuery = `INSERT INTO ${global.tables.users} (first_name) VALUES($1) RETURNING id`
+  const sqlQuery = `INSERT INTO ${global.tables.routes} (tag_name) VALUES($1, $2, $3, $4) RETURNING id`
   console.log(sqlQuery);
   global.instance.query(sqlQuery, user, function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)
     } else {
-      deferred.resolve(result)
+      deferred.resolve(result.rows[0].id)
     }
   })
   return deferred.promise

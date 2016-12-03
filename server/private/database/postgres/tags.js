@@ -4,8 +4,8 @@ const q = require('q')
 const mysql = require('pg')
 
 module.exports = {
-  get: getUser,
-  insert: insertUser,
+  get: getTags,
+  insert: addTags,
 }
 
 function getTags(tags) {
@@ -31,16 +31,16 @@ function getTags(tags) {
   return deferred.promise
 }
 
-function insertUser(user) {
+function addTags(user) {
   const deferred = q.defer()
-  const sqlQuery = `INSERT INTO ${global.tables.users} (first_name) VALUES($1)`
+  const sqlQuery = `INSERT INTO ${global.tables.tags} (tag_name, x, y, general_class) VALUES($1, $2, $3, $4) RETURNING id`
   console.log(sqlQuery);
   global.instance.query(sqlQuery, user, function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)
     } else {
-      deferred.resolve()
+      deferred.resolve(result.rows[0].id)
     }
   })
   return deferred.promise

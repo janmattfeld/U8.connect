@@ -15,10 +15,10 @@ function getUser(userId) {
   console.log(query)
   global.instance.query(query, function (err, result) {
     if (err) {
+      console.log(err)
       console.error(err)
       deferred.reject(err)
     } else if (result.rows.length == 0) {
-      console.log(result.rows)
       deferred.resolve(null)
     } else {
       console.log(result.rows)
@@ -30,14 +30,14 @@ function getUser(userId) {
 
 function addUser(user) {
   const deferred = q.defer()
-  const sqlQuery = `INSERT INTO ${global.tables.users} (first_name) VALUES($1) RETURNING id`
+  const sqlQuery = `INSERT INTO ${global.tables.users} (first_name, last_name, nick_name, sex, email, password, registered_since, birthday, longterm_tags, middleterm_tags, shortterm_tags, current_route ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id`
   console.log(sqlQuery);
   global.instance.query(sqlQuery, user, function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)
     } else {
-      deferred.resolve(result)
+      deferred.resolve(result.rows[0].id)
     }
   })
   return deferred.promise
