@@ -12,8 +12,14 @@
  * Route: /some/important/route => Filename: some-important-route.js
  */
 
+const db = require('../database/dbinterface')
+
 module.exports = (app) => {
-    app.get('/sample', (req, res) => {
-        res.send('Sample route')
+    app.get('/users', (req, res) => {
+      const userId = 1;
+        db.getUser(userId)
+          .then( (result) => {
+            res.send(result)
+          })
     })
 }
