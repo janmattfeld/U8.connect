@@ -13,25 +13,34 @@
  */
 
 const db = require('../database/dbinterface')
+const test = require('../../postTester')
 
 module.exports = (app) => {
-    app.get('/getUser/:userId', (req, res) => {
+    app.get('/user/:userId', (req, res) => {
       const userId = req.params.userId;
         db.getUser(userId)
           .then( (result) => {
-            res.send(result)
+            res.json({"status":"200", "message": result });
           })
           .catch( (error) => {
             console.log(error)
-            res.send(null)
+            res.json({"status":"500", "message": error });
           })
     })
 
-    app.get('/addUser', (req, res) => {
+    app.post('/user', (req, res) => {
       const userInfo = req.body;
         db.addUser(userInfo)
-          .then( (result) => {
-            res.send(result)
-          })
+        .then( (result) => {
+          res.json({"status":"200", "message": "User created", "id" : result });
+        })
+        .catch( (error) => {
+          console.log(error)
+          res.json({"status":"500", "message": error });
+        })
+    })
+
+    app.get('/postTester', (req, res) => {
+      test.postTester();
     })
 }

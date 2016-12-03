@@ -5,7 +5,7 @@ const mysql = require('pg')
 
 module.exports = {
   get: getUser,
-  insert: addUser,
+  add: addUser,
 }
 
 function getUser(userId) {
