@@ -1,3 +1,5 @@
 # U8.connect
-Mobility Hacks 2016
-## Immer die beste Verbindung ##
+
+> Immer die beste Verbindung
+
+Looking for new friends, work opportunities or a date? Use your commuting time and connect with like-minded people!
