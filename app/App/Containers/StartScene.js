@@ -41,9 +41,9 @@ class StartScreen extends React.Component {
     return (
       
       <ScrollableTabView >
+        <AroundScene tabLabel="Around"/>
         <NavigationScene tabLabel="Navigation"/>
         <MeScene tabLabel="Me"/>
-        <AroundScene tabLabel="Around"/>
       </ScrollableTabView>
     )
   }

@@ -24,7 +24,23 @@ const colors = {
   googleBlue: '#4285F4',
   googleRed: '#DD4b39',
   googleYellow: '#EEB211',
-  lightGray: '#828282'
+  lightGray: '#828282',
+  ubahn: {
+    '1': '#54B14E',
+    '2': '#F55825',
+    '3': '#54B14E',
+    '4': '#54B14E',
+    '5': '#54B14E',
+    '6': '#54B14E',
+    '7': '#54B14E',
+    '8': '#54B14E',
+    '9': '#54B14E',
+  },
+  sbahn: {
+    '1': '#D96EAA'
+  },
+  bvgYellowLight: '#FFF313',
+  bvgYellowDark: '#EEE508'
 }
 
 export default colors

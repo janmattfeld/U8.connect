@@ -3,6 +3,8 @@ import { View, Text, ListView, ActivityIndicator, TouchableHighlight } from 'rea
 import { connect } from 'react-redux'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
+import Route from '../Components/Route'
+import personListItem from '../Components/PersonListItem'
 
 // Actions
 import { scan, changeScene } from '../Reducers/action'
@@ -17,6 +19,36 @@ class AroundScene extends React.Component {
 
   constructor (props) {
     super(props)
+    const rowHasChanged = (r1, r2) => r1 !== r2
+
+    // DataSource configured
+    this.datasource = new ListView.DataSource({rowHasChanged})
+    this.data = this.datasource.cloneWithRows([
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      },
+      {
+        name: 'Markus'
+      }
+    ])
   }
 
   componentWillMount () {
@@ -26,18 +58,28 @@ class AroundScene extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    this.data = this.datasource.cloneWithRows(nextProps.devices)
   }
 
   clickHandler () {
     // this.props.changeScene(Scenes.enterId)
   }
 
+  _renderRow (person) {
+    return <Text style={{fontSize: 20}}>person.name</Text>
+  }
+
   render () {
     return (
         <View style={styles.view}>
-          <TouchableHighlight onPress={this.clickHandler}>
-            <Text>People Around</Text>
-          </TouchableHighlight>
+          <Route line="S1" station="Wannsee"/>
+          <ListView
+            contentContainerStyle={styles.listContent}
+            dataSource={this.data}
+            renderRow={this._renderRow.bind(this)}
+            renderSeparator={(sectionId, rowId) => <View key={rowId} style={{height: 1, backgroundColor: 'black', marginRight: 10, marginLeft: 10}} />}
+          />
+          
         </View>
     )
   }
