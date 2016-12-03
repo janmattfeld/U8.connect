@@ -1,17 +1,17 @@
 'use strict'
 const global = require(__dirname + '/global.js')
 const q = require('q')
-const mysql = require('mysql')
+const mysql = require('pg')
 
 module.exports = {
-  get: getBoards,
-  insert: insertBoard,
+  get: getUser,
+  insert: insertUser,
 }
 
-function getBoards(projectId) {
+function getUser(userId) {
   const deferred = q.defer()
-  let query = `SELECT * FROM ${global.tables.board}  WHERE project_id=?`
-  global.instance.query(query, projectId, function (err, result) {
+  let query = `SELECT * FROM ${global.tables.users}  WHERE id=?`
+  global.instance.query(query, userId, function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)
@@ -22,12 +22,12 @@ function getBoards(projectId) {
   return deferred.promise
 }
 
-function insertBoard(board) {
+function insertUser(user) {
   const deferred = q.defer()
-  const sqlQuery = `INSERT INTO ${global.tables.board} SET ?`
-  global.instance.query(sqlQuery, board, function (err, result) {
+  const sqlQuery = `INSERT INTO ${global.tables.users} SET ?`
+  global.instance.query(sqlQuery, user, function (err, result) {
     if (err) {
-      console.info(sqlQuery, ' -> ', mysql.escape(board))
+      console.info(sqlQuery, ' -> ', pg.escape(user))
       console.error(err)
       deferred.reject(err)
     } else {

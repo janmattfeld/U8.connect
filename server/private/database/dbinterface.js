@@ -1,10 +1,10 @@
 'use strict'
-const dbPath = './mysql'
+const dbPath = './postgres'
 const sample = require( __dirname + '/dbconfig.json').postgres
 
 //import necessary modules
 const global = require( dbPath + '/global.js')
-const board = require( dbPath + '/board.js')
+const users = require( dbPath + '/users.js')
 
 module.exports = {
   init: () => {
@@ -12,6 +12,6 @@ module.exports = {
       // sample.boards.forEach(board.insert)
     })
   },
-  getBoards: board.get,  // @Param (project_id)
-  addBoard: board.insert,  // @Param (board)
+  getUser: users.get,  // @Param (userId)
+  addUser: users.insert,  // @Param (user)
 }
