@@ -1,0 +1,24 @@
+{
+  "name": "u8",
+  "version": "0.1.0",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server",
+    "debug": "node-debug --harmony server",
+    "start-production": "NODE_ENV=production PORT=8080 node server > webapp.log 2> webapp-err.log &",
+    "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "test": "npm run test-unit && npm run test-integration",
+    "test-unit": "rimraf coverage && nyc _mocha test/unit",
+    "debug-test-unit": "node-debug --debug-brk --hidden node_modules _mocha test/unit",
+    "test-integration": "nightwatch",
+    "debug-test-integration": "node-debug --hidden node_modules nightwatch"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "mysql": "^2.11.1",
+    "path": "^0.12.7",
+    "q": "^1.4.1",
+    "require-all": "^2.0.0"
+  }
+}
