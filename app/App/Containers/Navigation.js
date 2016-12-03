@@ -25,7 +25,7 @@ class Navigation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("Receives new Props: ", nextProps.scene, this.props.lastAction)
+    // console.log("Receives new Props: ", nextProps.scene, this.props.lastAction)
     if(nextProps.scene != this.props.scene && nextProps.lastAction != 'POP_SCENE'){
       if(this.props.scene == Scenes.roleSelect)
         this.navigator.pop()
@@ -48,8 +48,10 @@ class Navigation extends Component {
     switch (route.component) {
       case Scenes.connect:
         return <Connect navigator={navigator} {...route.passProps} />
-      default:
+      case Scenes.start:
         return <Start navigator={navigator} {...route.passProps} />
+      default:
+        return <Connect navigator={navigator} {...route.passProps} /> 
     }
   }
 
@@ -107,20 +109,19 @@ class Navigation extends Component {
   }
 
   renderNavBar() {
-    let ignore = [Scenes.roleSelect, Scenes.adventureIntro]
-    // let stack = this.navigator.getCurrentRoutes()
-    // let last = stack[stack.length-1]
-    if(ignore.indexOf(this.props.scene) == -1)
-      return <Navigator.NavigationBar
-              style={styles.nav}
-              routeMapper={this.navigationRouteMapper()} />
+    // let ignore = [Scenes.roleSelect, Scenes.start]
+
+    // if(ignore.indexOf(this.props.scene) == -1)
+    //   return <Navigator.NavigationBar
+    //           style={styles.nav}
+    //           routeMapper={this.navigationRouteMapper()} />
   }
 
   render () {
     let initialScene = this.props.scene
     let sceneStyle = () => {
       return {
-        paddingTop: Metrics.navBarHeight
+        paddingTop: Metrics.statusBarHeight
       }
     }
 
@@ -129,7 +130,7 @@ class Navigation extends Component {
         configureScene={this.configureScene}
         sceneStyle={sceneStyle()}
         navigationBar={this.renderNavBar()}
-        initialRouteStack={[{ component: Scenes.roleSelect }]}
+        initialRouteStack={[{ component: Scenes.start }]}
         renderScene={this.renderScene}
         ref={(nav) => this.navigator = nav}
       />

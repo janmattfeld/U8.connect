@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import {Scenes} from '../Constants/'
 
-const scene = (state = Scenes.roleSelect, action) => {
+const scene = (state = Scenes.start, action) => {
   switch (action.type) {
     case 'CHANGE_SCENE':
       console.log("New Scene------------ ", action.payload.name)

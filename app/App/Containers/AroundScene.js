@@ -4,21 +4,16 @@ import { connect } from 'react-redux'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
-// Components
-import MeScene from './MeScene'
-import NavigationScene from './NavigationScene'
-import AroundScene from './AroundScene'
-
 // Actions
 import { scan, changeScene } from '../Reducers/action'
 
 // Styles
-import styles from './Styles/ConnectScreenStyle'
+import styles from './Styles/AroundSceneStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Metrics } from '../Themes'
 import {Scenes} from '../Constants'
 
-class StartScreen extends React.Component {
+class AroundScene extends React.Component {
 
   constructor (props) {
     super(props)
@@ -39,17 +34,16 @@ class StartScreen extends React.Component {
 
   render () {
     return (
-      
-      <ScrollableTabView >
-        <NavigationScene tabLabel="Navigation"/>
-        <MeScene tabLabel="Me"/>
-        <AroundScene tabLabel="Around"/>
-      </ScrollableTabView>
+        <View style={styles.view}>
+          <TouchableHighlight onPress={this.clickHandler}>
+            <Text>People Around</Text>
+          </TouchableHighlight>
+        </View>
     )
   }
 }
 
-StartScreen.PropTypes = {
+AroundScene.PropTypes = {
   devices: PropTypes.arrayOf(PropTypes.string)
 }
 
@@ -68,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AroundScene)

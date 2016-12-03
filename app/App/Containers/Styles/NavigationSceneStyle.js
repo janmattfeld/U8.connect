@@ -4,6 +4,6 @@ import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   view: {
-    backgroundColor: 'green'
+    backgroundColor: 'blue'
   }
 })
