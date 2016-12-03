@@ -18,20 +18,24 @@ module.exports = (app) => {
     app.get('/getTags', (req, res) => {
       const tags = req.params.tags;
         db.getTags(tags)
-          .then( (result) => {
-            res.send(result)
-          })
-          .catch( (error) => {
-            console.log(error)
-            res.send(null)
-          })
+        .then( (result) => {
+          res.json({"status":"200", "message": result });
+        })
+        .catch( (error) => {
+          console.log(error)
+          res.json({"status":"500", "message": error });
+        })
     })
 
     app.get('/addTags', (req, res) => {
       const tags = req.body;
         db.addTags(tags)
-          .then( (result) => {
-            res.send(result)
-          })
+        .then( (result) => {
+          res.json({"status":"200", "message": "Tags added", "ids" : result });
+        })
+        .catch( (error) => {
+          console.log(error)
+          res.json({"status":"500", "message": error });
+        })
     })
 }
