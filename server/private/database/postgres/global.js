@@ -68,14 +68,20 @@ function createUsersTable() {
   'longterm_tags text',
   'middleterm_tags text',
   'shortterm_tags text',
-  'current_route text'
+  'current_route text',
+  'lat float',
+  'lon float',
+  'last_geo_timestamp integer'
   ])
 }
 
 function createTagsTable() {
   return createTable(tables.tags, [
     'id serial',
-    'tag_name varchar(128)'
+    'tag_name varchar(128)',
+    'x integer',
+    'y integer',
+    'general_class integer'
   ])
 }
 
@@ -83,12 +89,14 @@ function createRoutesTable() {
   // TODO: Replace long type with DateTime
   return createTable(tables.routes, [
     'id serial',
-    'vehicle_name text',
+    'type text',
     'route_name text',
+    'route_extid text',
     'time_start integer',
     'time_end integer',
+    'main_tags text',
     'tags text',
-    'tags_amount text'
+    'tags_intensity text'
   ])
 }
 
