@@ -22,7 +22,7 @@ var client = new pg.Client(config.url)
 
 function connect() {
   var deferred = q.defer()
-  console.log('Trying to connect...')
+  console.info('Trying to connect...')
   console.log('Waiting')
   console.log(config.url)
 
