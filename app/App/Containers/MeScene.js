@@ -7,6 +7,8 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 // Actions
 import { scan, changeScene } from '../Reducers/action'
 
+
+
 // Styles
 import styles from './Styles/MeSceneStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
