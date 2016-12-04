@@ -29,11 +29,11 @@ class AroundScene extends React.Component {
         image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
         tags: ['musik', 'code', 'hackathon', 'musik', 'code', 'hackathon'],
         shortTags: ['coffe'],
-        lookingFor: 'Business'
+        lookingFor: 'Date'
       },
       {
         name: 'Oliver',
-        image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
+        image: 'https://www.xing.com/image/0_e_0_cde85f1d9_6577915_9/oliver-schmidt-rehfeldt-foto.256x256.jpg',
         tags: ['musik', 'code', 'hackathon'],
         shortTags: ['dog'],
         lookingFor: 'Business'

@@ -10,11 +10,16 @@ var port         = isDeveloping ? 8080 : process.env.PORT;
 var app          = express();
 var router       = require('./private/router.js')(app)
 const db         = require('./private/database/dbinterface')
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+// app.use(bodyParser.urlencoded({
+//   extended: false
+// }))
 
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
+
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 db.init()
   .then(() => {

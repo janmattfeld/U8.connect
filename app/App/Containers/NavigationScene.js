@@ -83,8 +83,9 @@ class NavigationScene extends React.Component {
     }
   }
 
-  clickHandler () {
-    // this.props.changeScene(Scenes.enterId)
+  clickHandler (route) {
+    
+    this.props.setRoute(route)
   }
 
   _renderRow (elem) {
@@ -100,7 +101,7 @@ class NavigationScene extends React.Component {
     
     if(this.props.routes.length > 0){
       return (
-          <RouteListItem route={elem} selected={() => this.clickHandler(elem)}/>
+          <RouteListItem route={elem} select={() => this.clickHandler(elem)}/>
       )
     }
   }
@@ -182,6 +183,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getRoute: (from, to) => {
       dispatch(request('routes', {from, to}))
+    },
+    setRoute: (route) => {
+      dispatch(request('route', {route}))
     },
     getStations: (search) => {
       dispatch(request('startpoint', search))

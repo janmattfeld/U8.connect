@@ -69,18 +69,18 @@ function makeUrl(data){
 }
 
 module.exports = (app) => {
-    app.get('/planer', (req, res) => {
-      const fromId = req.query.fromId
-      const toId = req.query.toId
+    app.post('/planer', (req, res) => {
+      var route = req.body 
+      console.log("Call planer with route", req.body)
 
       request(http + 'originExtId=' + fromId + "&destExtId="+toId + bvg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           trip = JSON.parse(body);
-          // retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
-          // var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
-          // request(finalString, function (error, response, body) {
-          //   //console.log(response);
-          // });
+          retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
+          var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
+          request(finalString, function (error, response, body) {
+            //console.log(response);
+          });
 
           res.json(trip.Trip)
 

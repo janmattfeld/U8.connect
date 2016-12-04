@@ -39,20 +39,20 @@ export default class RouteListItem extends React.Component {
       }
     }
     return (
-      <TouchableHighlight>
-      <View style={styles.view}>
-        <View style={styles.vehicles}>
-          {
-            this.props.route.transport.map( (vehicle) => (
-              <Image style={styles.vehicleIcon} source={vehicleSource(vehicle)}/>
-            ))
-          }
-         </View>
-         <View style={styles.time}>
-            <Text>Starting { this.props.route.startingAt.substring(0,5) }</Text>
-            <Text> and departures at { this.props.route.departureAt.substring(0,5) }</Text>
-         </View>
-      </View>
+      <TouchableHighlight onPress={() => this.props.select(this.props.route)}>
+        <View style={styles.view}>
+          <View style={styles.vehicles}>
+            {
+              this.props.route.transport.map( (vehicle) => (
+                <Image style={styles.vehicleIcon} source={vehicleSource(vehicle)}/>
+              ))
+            }
+          </View>
+          <View style={styles.time}>
+              <Text>Starting { this.props.route.startingAt.substring(0,5) }</Text>
+              <Text> and departures at { this.props.route.departureAt.substring(0,5) }</Text>
+          </View>
+        </View>
       </TouchableHighlight>
     )
   }
@@ -61,7 +61,8 @@ export default class RouteListItem extends React.Component {
 RouteListItem.propTypes = {
   line: React.PropTypes.string,
   station: React.PropTypes.string,
-  seperator: React.PropTypes.bool
+  seperator: React.PropTypes.bool,
+  select: React.PropTypes.func
 }
 
 
