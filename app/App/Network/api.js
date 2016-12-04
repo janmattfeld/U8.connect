@@ -54,6 +54,15 @@ export function getStation(query) {
 export function getRoute(params) {
   return fetchJson(`${API_URL}/route?fromId=${params.from}&toId=${params.to}`)
 }
+export function setRoute(params) {
+  return fetchJson(`${API_URL}/planer`, {
+    method: 'POST',
+    'Content-Type': 'application/json',
+    body: {
+     ...params.route
+    },
+  })
+}
 
 export const request = (resource, params) => {
   switch(resource){
@@ -62,6 +71,8 @@ export const request = (resource, params) => {
       return getStation(params)
     case 'routes':
       return getRoute(params)
+    case 'route':
+      return setRoute(params)
     default:
       return new Promise( (resolve, reject) => {
         reject()
