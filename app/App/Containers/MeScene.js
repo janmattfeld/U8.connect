@@ -3,12 +3,13 @@ import { View, Text, ListView, ActivityIndicator, TouchableHighlight } from 'rea
 import { connect } from 'react-redux'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
+import MyProfile from '../Components/MyProfile'
 
 // Actions
 import { scan, changeScene } from '../Reducers/action'
 
 // Styles
-import styles from './Styles/MeSceneStyle'
+import styles from './Styles/AroundSceneStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Metrics } from '../Themes'
 import {Scenes} from '../Constants'
@@ -17,6 +18,19 @@ class MeScene extends React.Component {
 
   constructor (props) {
     super(props)
+    const rowHasChanged = (r1, r2) => r1 !== r2
+
+    // DataSource configured
+    this.datasource = new ListView.DataSource({rowHasChanged})
+    this.data = this.datasource.cloneWithRows([
+      {
+        name: 'Paul',
+        image: 'http://admissions.berkeley.edu/sites/default/files/UCB_landingpage_images_600x300_212.jpg',
+        tags: ['design', 'react', 'goa', 'bouldering', 'hackathon'],
+        shortTags: ['goToWork'],
+        lookingFor: 'Business'
+      }
+    ])
   }
 
   componentWillMount () {
@@ -26,19 +40,28 @@ class MeScene extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    this.data = this.datasource.cloneWithRows(nextProps.devices)
   }
 
-  clickHandler () {
+  clickHandler (person) {
+
     // this.props.changeScene(Scenes.enterId)
+  }
+
+  _renderRow (person) {
+    return (
+        <MyProfile person={person} selected={() => this.clickHandler(person)}/>
+    )
   }
 
   render () {
     return (
         <View style={styles.view}>
-          <TouchableHighlight onPress={this.clickHandler}>
-            <Text>Me Page</Text>
-            <img className='myProfilePicture'>
-          </TouchableHighlight>
+          <ListView
+            contentContainerStyle={styles.listContent}
+            dataSource={this.data}
+            renderRow={this._renderRow.bind(this)}
+          />
         </View>
     )
   }
