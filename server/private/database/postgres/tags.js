@@ -1,7 +1,7 @@
 'use strict'
 const global = require(__dirname + '/global.js')
 const q = require('q')
-const mysql = require('pg')
+const pg = require('pg')
 
 module.exports = {
   get: getTags,
@@ -31,11 +31,11 @@ function getTags(tags) {
   return deferred.promise
 }
 
-function addTags(user) {
+function addTags(tags) {
   const deferred = q.defer()
   const sqlQuery = `INSERT INTO ${global.tables.tags} (tag_name, x, y, general_class) VALUES($1, $2, $3, $4) RETURNING id`
   console.log(sqlQuery);
-  global.instance.query(sqlQuery, user, function (err, result) {
+  global.instance.query(sqlQuery,  Object.values(tags), function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)

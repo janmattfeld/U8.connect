@@ -28,8 +28,9 @@ module.exports = (app) => {
           })
     })
 
-    app.post('/user', (req, res) => {
-      const userInfo = req.body;
+    app.get('/userPost', (req, res) => {
+      console.log(req.query);
+      const userInfo = req.query
         db.addUser(userInfo)
         .then( (result) => {
           res.json({"status":"200", "message": "User created", "id" : result });
@@ -40,7 +41,26 @@ module.exports = (app) => {
         })
     })
 
-    app.get('/postTester', (req, res) => {
-      test.postTester();
+    app.get('/updateGeo/:userId', (req, res) => {
+      const userId = req.params.userId;
+      console.log(req.query);
+      const userInfo = req.query
+        db.updateGeo(userId, userInfo)
+        .then( (result) => {
+          res.json({"status":"200", "message": "Geo updated", "id" : result });
+        })
+        .catch( (error) => {
+          console.log(error)
+          res.json({"status":"500", "message": error });
+        })
     })
+
+    app.get('/postTester', (req, res) => {
+      test.postTester()
+        .then( (result) => {
+          res.json(JSON.parse(result.body))
+        })
+    })
+
+
 }
