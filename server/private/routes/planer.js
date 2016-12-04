@@ -101,7 +101,6 @@ module.exports = (app) => {
           //   return route.LegList.Leg
           // } )
           res.json(trip.Trip)
->>>>>>> b92c8cdece27a4fde23e41c32edc6b50dbf45501
 
 
         }

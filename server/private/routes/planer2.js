@@ -69,7 +69,7 @@ function makeUrl(data){
 }
 
 module.exports = (app) => {
-    app.get('/planer', (req, res) => {
+    app.get('/planer2', (req, res) => {
       const fromId = req.query.fromId
       const toId = req.query.toId
 
