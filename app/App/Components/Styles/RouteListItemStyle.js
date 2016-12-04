@@ -8,12 +8,18 @@ export default {
     marginLeft: 7,
     marginRight: 7,
   },
-  seperator:{
-    borderBottomWidth: 3,
-    borderColor: Colors.bvgYellowDark,
+  vehicles:{
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 5,
   },
-  stationInput: {
-    height: 25,
-    color: Colors.bvgGray
+  vehicleIcon: {
+    height: 20,
+    width: 20,
+    marginRight: 10
+  },
+  time: {
+    flex: 1,
+    flexDirection: 'row'
   }
 }

@@ -71,7 +71,6 @@ class AroundScene extends React.Component {
             dataSource={this.data}
             renderRow={this._renderRow.bind(this)}
           />
-          
         </View>
     )
   }

@@ -48,6 +48,7 @@ export function postExample(userID, password) {
 
 export function getStation(query) {
   return fetchJson(`${API_URL}/station?search=${query}`)
+            // .then( (r) => {console.log("$$", r)})
 }
 
 export function getRoute(params) {

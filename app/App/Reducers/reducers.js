@@ -5,6 +5,7 @@ import request from './apiReducer'
 import transport from './transportReducer'
 
 const lastAction = (state = {}, action) => {
+  console.log("$$Action: ", action.type)
   return action
 }
 
