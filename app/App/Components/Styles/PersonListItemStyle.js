@@ -5,76 +5,58 @@ import { Fonts, Colors, Metrics } from '../../Themes/'
 
 export default {
   view: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomColor: Colors.bvgYellowDark,
-    padding: Metrics.baseMargin,
-    borderBottomWidth: 3,
-    margin: Metrics.baseMargin
+    // justifyContent: 'space-between',
+    padding: Metrics.doubleBaseMargin,
   },
-  tagWrapper: {
-    height: 40,
+  info: {
+    padding: Metrics.baseMargin,
+    paddingTop: 0,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    // alignItems: 'flex-start',
+    overflow: 'hidden'
+  },
+  personImageWrapper: {
+  },
+  personImage: {
+    height: 70,
+    width: 70,
+    borderRadius: 35
+  },
+  headerWrapper: {
+    flex: 0,
+    justifyContent: 'flex-start',
+    paddingTop: 4
+  },
+  header: {
+    flex: 1,
+    fontSize: Metrics.text.small,
+    marginBottom: Metrics.baseMargin,
+    justifyContent: 'flex-end'
+  },
+  subHeader: {
+    flex: 1,
+    fontSize: Metrics.text.small,
+    marginBottom: Metrics.baseMargin,
+    justifyContent: 'flex-end',
+    color: Colors.charcoal,
+    fontWeight: 100
+  },
+  tags: {
+    flexDirection: 'row',
+    // flexWrap: 'wrap',
+    marginBottom: Metrics.baseMargin,
+    overflow: 'hidden'
   },
   tag: {
-    padding: 2,
-    paddingLeft: 3,
-    paddingRight: 3,
-    width: 40,
-    flex: 0,
-    flexDirection: 'column',
-    alignItems: 'center'
+    marginRight: 3
   },
-  sbahn: {
-    borderRadius: 15
-  },
-  ubahn: {
-    
-  },
-  tagText: {
-    fontSize: Metrics.text.small,
-    letterSpacing: 2,
-    color: 'white'
-  },
-  station: {
-    flex: 4,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flexDirection: 'row'
-  },
-  stationText: {
-    fontSize: Metrics.text.small,
-    paddingLeft: Metrics.baseMargin
-  },
-  icon: {
-    
-  },
-  color: (line) => {
-    let number = line.substring(1, line.length)
-    if(line.toUpperCase().startsWith('S')){
-      return {
-        color: Colors.sbahn[number] ? Colors.sbahn[number] : 'gray'
-      }
-    }else{
-      return {
-        color: Colors.ubahn[number] ? Colors.ubahn[number] : 'gray'
-      }
-    }
-  },
-  colorBg: (line) => {
-    let number = line.substring(1, line.length)
-    if(line.toUpperCase().startsWith('S')){
-      return {
-        backgroundColor: Colors.sbahn[number] ? Colors.sbahn[number] : 'gray'
-      }
-    }else{
-      return {
-        backgroundColor: Colors.ubahn[number] ? Colors.ubahn[number] : 'gray'
-      }
-    }
+  shortTag: {
+    marginRight: 3,
+    color: Colors.charcoal,
+    fontWeight: "100"
   }
 }

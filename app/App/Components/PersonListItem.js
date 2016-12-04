@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View, TouchableHighlight } from 'react-native'
 import styles from './Styles/PersonListItemStyle'
 
 // Themes
@@ -29,32 +29,43 @@ export default class PersonListItem extends React.Component {
         }
       }
     }
+
     return (
-      <View style={styles.view}>
-        <View style={styles.tagWrapper}>
-          { this.props.line.startsWith('S') ?
-            <View style={tagStyle(true)}>
-              <Text style={styles.tagText} >S1</Text>
-            </View> :
-            <View style={tagStyle(false)}>
-              <Text style={styles.tagText}>U1</Text>
-            </View>
-          }
-        </View>
-          <View style={styles.station}>
-            <Icon
-              name={'ios-play'}
-              size={Metrics.icons.medium}
-              style={styles.color(this.props.line)}
-            />
-            <Text style={styles.stationText}>{this.props.station}</Text>
+      <TouchableHighlight onPress={this.props.selected}>
+        <View style={styles.view}>
+          <View style={styles.personImageWrapper}>
+            <Image style={styles.personImage} source={{uri: this.props.person.image}}/>
           </View>
-      </View>
+          <View style={styles.info}>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+              <View>
+                <Text style={styles.header}>{this.props.person.name}</Text>
+              </View>
+              <View style={styles.headerWrapper}>
+                <Text style={styles.subHeade}>{this.props.person.lookingFor}</Text>
+              </View>
+            </View>
+            <View style={styles.tags}>
+              {
+                this.props.person.tags.map( (tag) => (
+                  <Text style={styles.tag} >#{tag}</Text>
+                ) )
+              }
+            </View>
+            <View style={styles.tags}>
+              {
+                this.props.person.shortTags.map( (tag) => (
+                  <Text style={styles.shortTag} >#{tag}</Text>
+                ) )
+              }
+            </View>
+          </View>
+        </View>
+      </TouchableHighlight>
     )
   }
 }
 
 PersonListItem.propTypes = {
-  line: React.PropTypes.string,
-  station: React.PropTypes.string
+  person: React.PropTypes.object,
 }

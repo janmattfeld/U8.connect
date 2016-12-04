@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import Route from '../Components/Route'
-import personListItem from '../Components/PersonListItem'
+import PersonListItem from '../Components/PersonListItem'
 
 // Actions
 import { scan, changeScene } from '../Reducers/action'
@@ -25,29 +25,19 @@ class AroundScene extends React.Component {
     this.datasource = new ListView.DataSource({rowHasChanged})
     this.data = this.datasource.cloneWithRows([
       {
-        name: 'Markus'
+        name: 'Markus',
+        image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
+        tags: ['musik', 'code', 'hackathon', 'musik', 'code', 'hackathon'],
+        shortTags: ['coffe'],
+        lookingFor: 'Business'
       },
       {
-        name: 'Markus'
+        name: 'Oliver',
+        image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
+        tags: ['musik', 'code', 'hackathon'],
+        shortTags: ['dog'],
+        lookingFor: 'Business'
       },
-      {
-        name: 'Markus'
-      },
-      {
-        name: 'Markus'
-      },
-      {
-        name: 'Markus'
-      },
-      {
-        name: 'Markus'
-      },
-      {
-        name: 'Markus'
-      },
-      {
-        name: 'Markus'
-      }
     ])
   }
 
@@ -61,12 +51,15 @@ class AroundScene extends React.Component {
     this.data = this.datasource.cloneWithRows(nextProps.devices)
   }
 
-  clickHandler () {
+  clickHandler (person) {
+    
     // this.props.changeScene(Scenes.enterId)
   }
 
   _renderRow (person) {
-    return <Text style={{fontSize: 20}}>person.name</Text>
+    return (
+        <PersonListItem person={person} selected={() => this.clickHandler(person)}/>
+    )
   }
 
   render () {
@@ -77,7 +70,6 @@ class AroundScene extends React.Component {
             contentContainerStyle={styles.listContent}
             dataSource={this.data}
             renderRow={this._renderRow.bind(this)}
-            renderSeparator={(sectionId, rowId) => <View key={rowId} style={{height: 1, backgroundColor: 'black', marginRight: 10, marginLeft: 10}} />}
           />
           
         </View>

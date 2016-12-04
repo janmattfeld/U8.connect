@@ -18,8 +18,9 @@ export default {
     height: 40,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    
+    alignItems: 'flex-end',
+    paddingRight: 5,
+    paddingTop: 3
   },
   tag: {
     padding: 2,
@@ -28,7 +29,7 @@ export default {
     width: 40,
     flex: 0,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   sbahn: {
     borderRadius: 15
@@ -39,17 +40,18 @@ export default {
   tagText: {
     fontSize: Metrics.text.small,
     letterSpacing: 2,
-    color: 'white'
+    color: 'white',
   },
   station: {
-    flex: 4,
+    flex: 6,
     justifyContent: "flex-start",
     alignItems: "center",
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   stationText: {
     fontSize: Metrics.text.small,
-    paddingLeft: Metrics.baseMargin
+    paddingLeft: Metrics.baseMargin,
+    paddingBottom: 5
   },
   icon: {
     
