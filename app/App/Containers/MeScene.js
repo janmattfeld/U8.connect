@@ -32,12 +32,30 @@ class MeScene extends React.Component {
     // this.props.changeScene(Scenes.enterId)
   }
 
+
   render () {
+    const json = {
+      'eins': 'eins'
+    }
     return (
         <View style={styles.view}>
           <TouchableHighlight onPress={this.clickHandler}>
             <Text>Me Page</Text>
-            <img className='bigProfilePicture' src={  }>
+            <div className='myProfileContainer'>
+              <img className='myProfilePicture'>
+              <div className='myName'></div>
+              <div className='myCurrentTag'></div>
+              <div className='myTags'>
+                {json.map((el, index) => {
+                  return (
+                    <div
+                      className='tag'
+                      id={index}>
+                    </div>
+                )})}
+              </div>
+              <div className='myLookingFor'>Looking for people to have a  .</div>
+            </div>
           </TouchableHighlight>
         </View>
     )
