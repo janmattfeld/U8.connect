@@ -5,6 +5,8 @@ const sample = require( __dirname + '/dbconfig.json').postgres
 //import necessary modules
 const global = require( dbPath + '/global.js')
 const users = require( dbPath + '/users.js')
+const tags = require( dbPath + '/tags.js')
+const routes = require( dbPath + '/routes.js')
 
 module.exports = {
   init: () => {
@@ -14,4 +16,9 @@ module.exports = {
   },
   getUser: users.get,  // @Param (userId)
   addUser: users.insert,  // @Param (user)
+  updateGeo: users.updateGeo,  // @Param (user)
+  getTags: tags.get,  // @Param (userId)
+  addTags: tags.insert,  // @Param (user)
+  getRoutes: routes.get,  // @Param (userId)
+  addRoutes: routes.insert,  // @Param (user)
 }

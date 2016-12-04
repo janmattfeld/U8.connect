@@ -15,9 +15,9 @@
 const db = require('../database/dbinterface')
 
 module.exports = (app) => {
-    app.get('/getRoutes', (req, res) => {
-      const tags = req.params.routes;
-        db.getTags(tags)
+    app.get('/routesStuff', (req, res) => {
+      const routes = req.params.routes;
+        db.getRoutes(routes)
         .then( (result) => {
           res.json({"status":"200", "message": result });
         })
@@ -27,8 +27,9 @@ module.exports = (app) => {
         })
     })
 
-    app.get('/addRoutes', (req, res) => {
-      const tags = req.body;
+    app.get('/routesStuffPost', (req, res) => {
+      console.log(req.query);
+      const routes = req.query
         db.addRoutes(routes)
         .then( (result) => {
           res.json({"status":"200", "message": "Route added", "ids" : result });
