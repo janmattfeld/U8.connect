@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8082'
+const API_URL = 'http://localhost:8080'
 
 // Similar to:
 // http://stackoverflow.com/questions/29473426/fetch-reject-promise-with-json-error-object
@@ -52,7 +52,7 @@ export function getStation(query) {
 }
 
 export function getRoute(params) {
-  return fetchJson(`${API_URL}/route?from=${params.from}&to=${params.to}`)
+  return fetchJson(`${API_URL}/route?fromId=${params.from}&toId=${params.to}`)
 }
 
 export const request = (resource, params) => {

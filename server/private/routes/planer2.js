@@ -76,32 +76,15 @@ module.exports = (app) => {
       request(http + 'originExtId=' + fromId + "&destExtId="+toId + bvg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           trip = JSON.parse(body);
-          // retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
-          // var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
-          // request(finalString, function (error, response, body) {
-          //   //console.log(response);
-          // });
 
-          res.json(trip.Trip)
+          retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
+          var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
+          request(finalString, function (error, response, body) {
+            //console.log(response);
+            res.json(response)
+          });
 
-
-        }
-      })
-    })
-
-    app.get('/route', (req, res) => {
-      const fromId = req.query.fromId
-      const toId = req.query.toId
-      console.log("Looking for Route from: ", fromId, toId)
-
-      request(http + 'originExtId=' + fromId + "&destExtId="+toId + bvg, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          trip = JSON.parse(body);
-          // trip = trip.Trip.map( (route) => {
-          //   return route.LegList.Leg
-          // } )
-          res.json(trip.Trip)
->>>>>>> b92c8cdece27a4fde23e41c32edc6b50dbf45501
+          //res.json(makeUrl(retrievedRoutes))
 
 
         }
