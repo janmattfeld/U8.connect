@@ -2,6 +2,8 @@
 const global = require(__dirname + '/global.js')
 const q = require('q')
 const pg = require('pg')
+const moment = require('moment');
+
 
 module.exports = {
   get: getRoutes,
@@ -12,7 +14,7 @@ function getRoutes(routes) {
   const deferred = q.defer()
   console.log(routes)
   let query = `SELECT * FROM ${global.tables.routes} WHERE id IN (
-    ${routes.join(', \n')}
+    ${routes.routes}
   )`
   console.log(query)
   global.instance.query(query, function (err, result) {
@@ -32,15 +34,31 @@ function getRoutes(routes) {
 
 function addRoutes(routes) {
   const deferred = q.defer()
+  console.log(routes.routeSetup.length);
+  for(i=0;i<routes.routeSetup.length;i++)
+  {
+    var route = routes.routeSetup[i];
+    insertObj = {
+      type : route.type,
+      route_name: route.name,
+      route_extid: route.extId,
+      time_start: moment(route.rtDate+" "+route.rtTime).unix(),
+      time_end: 0,
+      main_tags: 1,
+      tags: "1,2,3",
+      tags_intensity: "0.3, 0.6, 0.94"
+    }
   const sqlQuery = `INSERT INTO ${global.tables.routes} (type, route_name, route_extid, time_start, time_end, main_tags, tags, tags_intensity) VALUES($1, $2, $3, $4,$5,$6,$7,$8) RETURNING id`
   console.log(sqlQuery);
-  global.instance.query(sqlQuery,  Object.values(routes), function (err, result) {
+  global.instance.query(sqlQuery,  Object.values(insertObj), function (err, result) {
     if (err) {
       console.error(err)
       deferred.reject(err)
     } else {
-      deferred.resolve(result.rows[0].id)
+      deferred.resolve(result.rows)
     }
   })
+}
+
   return deferred.promise
 }

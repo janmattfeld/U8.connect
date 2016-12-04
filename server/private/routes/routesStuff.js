@@ -16,7 +16,7 @@ const db = require('../database/dbinterface')
 
 module.exports = (app) => {
     app.get('/routesStuff', (req, res) => {
-      const routes = req.params.routes;
+      const routes = req.query;
         db.getRoutes(routes)
         .then( (result) => {
           res.json({"status":"200", "message": result });

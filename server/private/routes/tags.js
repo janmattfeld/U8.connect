@@ -16,7 +16,7 @@ const db = require('../database/dbinterface')
 
 module.exports = (app) => {
     app.get('/tags', (req, res) => {
-      const tags = req.params.tags;
+      const tags = req.query
         db.getTags(tags)
         .then( (result) => {
           res.json({"status":"200", "message": result });

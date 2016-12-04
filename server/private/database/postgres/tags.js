@@ -12,7 +12,7 @@ function getTags(tags) {
   const deferred = q.defer()
   console.log(tags)
   let query = `SELECT * FROM ${global.tables.tags} WHERE id IN (
-    ${tags.join(', \n')}
+    ${tags.tags}
   )`
 
   console.log(query)
