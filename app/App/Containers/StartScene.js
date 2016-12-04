@@ -38,13 +38,18 @@ class StartScreen extends React.Component {
   }
 
   render () {
-    const tabSliderColor = {"backgroundColor": Colors.bvgYellowDark};
+    const tabPosition = {
+      "marginTop": 8
+    }
+    const tabSliderColor = {
+      "backgroundColor": Colors.bvgYellowDark
+    }
     const tabText = {
       "fontSize": Metrics.text.small
     }
     return (
 
-      <ScrollableTabView tabBarTextStyle={tabText} tabBarActiveTextColor="black" tabBarUnderlineStyle={tabSliderColor}>
+      <ScrollableTabView style={tabPosition} tabBarTextStyle={tabText} tabBarActiveTextColor="black" tabBarUnderlineStyle={tabSliderColor}>
         <NavigationScene tabLabel="navigate"/>
         <AroundScene tabLabel="around"/>
         <MeScene tabLabel="me"/>
