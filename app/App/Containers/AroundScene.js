@@ -3,6 +3,8 @@ import { View, Text, ListView, ActivityIndicator, TouchableHighlight } from 'rea
 import { connect } from 'react-redux'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
+import Route from '../Components/Route'
+import PersonListItem from '../Components/PersonListItem'
 
 // Actions
 import { scan, changeScene } from '../Reducers/action'
@@ -17,6 +19,26 @@ class AroundScene extends React.Component {
 
   constructor (props) {
     super(props)
+    const rowHasChanged = (r1, r2) => r1 !== r2
+
+    // DataSource configured
+    this.datasource = new ListView.DataSource({rowHasChanged})
+    this.data = this.datasource.cloneWithRows([
+      {
+        name: 'Markus',
+        image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
+        tags: ['musik', 'code', 'hackathon', 'musik', 'code', 'hackathon'],
+        shortTags: ['coffe'],
+        lookingFor: 'Business'
+      },
+      {
+        name: 'Oliver',
+        image: 'http://combiboilersleeds.com/images/person/person-5.jpg',
+        tags: ['musik', 'code', 'hackathon'],
+        shortTags: ['dog'],
+        lookingFor: 'Business'
+      },
+    ])
   }
 
   componentWillMount () {
@@ -26,18 +48,30 @@ class AroundScene extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    this.data = this.datasource.cloneWithRows(nextProps.devices)
   }
 
-  clickHandler () {
+  clickHandler (person) {
+    
     // this.props.changeScene(Scenes.enterId)
+  }
+
+  _renderRow (person) {
+    return (
+        <PersonListItem person={person} selected={() => this.clickHandler(person)}/>
+    )
   }
 
   render () {
     return (
         <View style={styles.view}>
-          <TouchableHighlight onPress={this.clickHandler}>
-            <Text>People Around</Text>
-          </TouchableHighlight>
+          <Route line="S1" station="Wannsee"/>
+          <ListView
+            contentContainerStyle={styles.listContent}
+            dataSource={this.data}
+            renderRow={this._renderRow.bind(this)}
+          />
+          
         </View>
     )
   }

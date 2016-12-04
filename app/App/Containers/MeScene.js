@@ -37,7 +37,7 @@ class MeScene extends React.Component {
         <View style={styles.view}>
           <TouchableHighlight onPress={this.clickHandler}>
             <Text>Me Page</Text>
-            <img className='myProfilePicture' src={  }>
+            <img className='myProfilePicture'>
           </TouchableHighlight>
         </View>
     )
