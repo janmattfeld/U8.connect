@@ -40,7 +40,8 @@ const colors = {
     '1': '#D96EAA'
   },
   bvgYellowLight: '#FFF313',
-  bvgYellowDark: '#EEE508'
+  bvgYellowDark: '#F0d722',
+  bvgGray: '#595b62',
 }
 
 export default colors
