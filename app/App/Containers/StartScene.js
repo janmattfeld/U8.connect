@@ -15,7 +15,7 @@ import { scan, changeScene } from '../Reducers/action'
 // Styles
 import styles from './Styles/ConnectScreenStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Metrics } from '../Themes'
+import { Colors, Metrics } from '../Themes'
 import {Scenes} from '../Constants'
 
 class StartScreen extends React.Component {
@@ -38,12 +38,21 @@ class StartScreen extends React.Component {
   }
 
   render () {
+    const tabPosition = {
+      "marginTop": 8
+    }
+    const tabSliderColor = {
+      "backgroundColor": Colors.bvgYellowDark
+    }
+    const tabText = {
+      "fontSize": Metrics.text.small
+    }
     return (
-      
-      <ScrollableTabView >
-        <NavigationScene tabLabel="Navigation"/>
-        <AroundScene tabLabel="Around"/>
-        <MeScene tabLabel="Me"/>
+
+      <ScrollableTabView style={tabPosition} tabBarTextStyle={tabText} tabBarActiveTextColor="black" tabBarUnderlineStyle={tabSliderColor}>
+        <NavigationScene tabLabel="navigate"/>
+        <AroundScene tabLabel="around"/>
+        <MeScene tabLabel="me"/>
       </ScrollableTabView>
     )
   }

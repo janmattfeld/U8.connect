@@ -68,7 +68,8 @@ function createUsersTable() {
   'longterm_tags text',
   'middleterm_tags text',
   'shortterm_tags text',
-  'current_route text',
+  'route_setup text',
+  'current_route integer',
   'lat float',
   'lon float',
   'last_geo_timestamp integer'
@@ -79,8 +80,8 @@ function createTagsTable() {
   return createTable(tables.tags, [
     'id serial',
     'tag_name varchar(128)',
-    'x integer',
-    'y integer',
+    'x double precision',
+    'y double precision',
     'general_class integer'
   ])
 }
