@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, View, TextInput } from 'react-native'
+import { Image, Text, View, TextInput, TouchableHighlight } from 'react-native'
 import styles from './Styles/RouteListItemStyle'
 
 // Themes
@@ -39,6 +39,7 @@ export default class RouteListItem extends React.Component {
       }
     }
     return (
+      <TouchableHighlight>
       <View style={styles.view}>
         <View style={styles.vehicles}>
           {
@@ -48,10 +49,11 @@ export default class RouteListItem extends React.Component {
           }
          </View>
          <View style={styles.time}>
-            <Text>Starting { (new Date(this.props.route.startingAt)).toLocaleTimeString().substring(0,5) }</Text>
-            <Text> and departures at { (new Date(this.props.route.departureAt)).toLocaleTimeString().substring(0,5) }</Text>
+            <Text>Starting { this.props.route.startingAt.substring(0,5) }</Text>
+            <Text> and departures at { this.props.route.departureAt.substring(0,5) }</Text>
          </View>
       </View>
+      </TouchableHighlight>
     )
   }
 }
@@ -61,3 +63,8 @@ RouteListItem.propTypes = {
   station: React.PropTypes.string,
   seperator: React.PropTypes.bool
 }
+
+
+
+            // <Text>Starting { (new Date(this.props.route.startingAt)).toLocaleTimeString().substring(0,5) }</Text>
+            // <Text> and departures at { (new Date(this.props.route.departureAt)).toLocaleTimeString().substring(0,5) }</Text>

@@ -70,16 +70,37 @@ function makeUrl(data){
 
 module.exports = (app) => {
     app.get('/planer', (req, res) => {
-      request(http + 'originExtId=' + originExtId + "&destExtId="+destExtId + bvg, function (error, response, body) {
+      const fromId = req.query.fromId
+      const toId = req.query.toId
+
+      request(http + 'originExtId=' + fromId + "&destExtId="+toId + bvg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           trip = JSON.parse(body);
-          retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
-          var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
-          request(finalString, function (error, response, body) {
-            //console.log(response);
-          });
+          // retrievedRoutes = updateSearchList(trip.Trip[0].LegList.Leg)
+          // var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
+          // request(finalString, function (error, response, body) {
+          //   //console.log(response);
+          // });
 
-          res.json(retrievedRoutes)
+          res.json(trip.Trip)
+
+
+        }
+      })
+    })
+
+    app.get('/route', (req, res) => {
+      const fromId = req.query.fromId
+      const toId = req.query.toId
+      console.log("Looking for Route from: ", fromId, toId)
+
+      request(http + 'originExtId=' + fromId + "&destExtId="+toId + bvg, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          trip = JSON.parse(body);
+          // trip = trip.Trip.map( (route) => {
+          //   return route.LegList.Leg
+          // } )
+          res.json(trip.Trip)
 
 
         }

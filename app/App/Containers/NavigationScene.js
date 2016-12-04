@@ -46,12 +46,40 @@ class NavigationScene extends React.Component {
   componentWillReceiveProps (nextProps) {
     console.log('$$Got props: ', nextProps.stations)
     console.log('$$Got Route props: ', nextProps.routes)
+    let convert = (type) => {
+      console.log("$$Convert type", type)
+      type = type.startsWith('S') ? 'S' : type
+      switch(type){
+        case 'ST':
+          return 'tram'
+        case 'S':
+          return 'sbahn'
+        case 'U':
+          return 'ubahn'
+        case 'RE':
+          return 'regio'
+        default:
+          return null
+      }
+    }
     if(nextProps.stations.length > 0){
       this.areStations = true
       this.data = this.datasource.cloneWithRows(nextProps.stations)
     }else{
+      console.log("$$ Parsing routes")
       this.areStations = false
-      this.data = this.datasource.cloneWithRows(nextProps.routes)
+      var routes = nextProps.routes.map( (route) => {
+          var transport = route.LegList.Leg.map( (conn) => {
+            return convert(conn.category)
+          })
+          return {
+            transport,
+            startingAt: route.LegList.Leg[0].Origin.time,
+            departureAt: route.LegList.Leg[route.LegList.Leg.length-1].Destination.time,
+          }
+      })
+      console.log(routes)
+      this.data = this.datasource.cloneWithRows(routes)
     }
   }
 
@@ -60,7 +88,7 @@ class NavigationScene extends React.Component {
   }
 
   _renderRow (elem) {
-    if(this.areStations){
+    if(this.areStations && this.props.stations.length > 0){
       return (
           <TouchableHighlight onPress={() => this.selectStation(elem)}  underlayColor={Colors.background}>
             <View style={styles.listItemView}>
@@ -68,7 +96,9 @@ class NavigationScene extends React.Component {
             </View>
           </TouchableHighlight>
       )
-    }else{
+    }
+    
+    if(this.props.routes.length > 0){
       return (
           <RouteListItem route={elem} selected={() => this.clickHandler(elem)}/>
       )
@@ -100,6 +130,7 @@ class NavigationScene extends React.Component {
     console.log("$$Ids: ", fromId, toId)
     if(fromId && toId){
       this.props.getRoute(fromId, toId)
+      this.areStations = false
     }
   }
 
