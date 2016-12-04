@@ -55,6 +55,19 @@ module.exports = (app) => {
         })
     })
 
+    app.get('/searchForUsersWithId/:current_route', (req, res) => {
+      const current_route = req.params.current_route;
+      console.log(current_route);
+        db.searchForUsersWithId(current_route)
+        .then( (result) => {
+          res.json({"status":"200", "message": "Geo updated", "id" : result });
+        })
+        .catch( (error) => {
+          console.log(error)
+          res.json({"status":"500", "message": error });
+        })
+    })
+
     app.get('/postTester', (req, res) => {
       test.postTester()
         .then( (result) => {

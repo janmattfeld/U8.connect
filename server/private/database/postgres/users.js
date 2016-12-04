@@ -6,7 +6,8 @@ const pg = require('pg')
 module.exports = {
   get: getUser,
   insert: addUser,
-  updateGeo: updateGeo
+  updateGeo: updateGeo,
+  search: searchForUsersWithId
 }
 
 function getUser(userId) {
@@ -56,6 +57,26 @@ function updateGeo(userId, geoInfo){
       deferred.reject(err)
     } else {
       deferred.resolve(result.rows[0].id)
+    }
+  })
+  return deferred.promise
+}
+
+function searchForUsersWithId(current_route){
+  const deferred = q.defer()
+  console.log(current_route)
+  let query = `SELECT * FROM ${global.tables.users} WHERE current_route = ` + current_route
+  console.log(query)
+  global.instance.query(query, function (err, result) {
+    if (err) {
+      console.log(err)
+      console.error(err)
+      deferred.reject(err)
+    } else if (result.rows.length == 0) {
+      deferred.resolve(null)
+    } else {
+      console.log(result.rows)
+      deferred.resolve(result.rows)
     }
   })
   return deferred.promise

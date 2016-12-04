@@ -77,9 +77,10 @@ module.exports = (app) => {
           var finalString = "http://localhost:8080/routesStuffPost/?" +  makeUrl(retrievedRoutes);
           request(finalString, function (error, response, body) {
             //console.log(response);
+            res.json(response)
           });
 
-          res.json(retrievedRoutes)
+          //res.json(makeUrl(retrievedRoutes))
 
 
         }

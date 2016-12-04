@@ -16,6 +16,7 @@ module.exports = {
   },
   getUser: users.get,  // @Param (userId)
   addUser: users.insert,  // @Param (user)
+  search: users.search,
   updateGeo: users.updateGeo,  // @Param (user)
   getTags: tags.get,  // @Param (userId)
   addTags: tags.insert,  // @Param (user)
