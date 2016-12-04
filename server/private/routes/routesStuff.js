@@ -27,6 +27,7 @@ module.exports = (app) => {
         })
     })
 
+/*TODO make post */
     app.get('/routesStuffPost', (req, res) => {
       console.log(req.query);
       const routes = req.query

@@ -76,7 +76,8 @@ function postTester() {
 
   var finalString = "http://localhost:8080/routeStuffPost/?" + string_;
   request(finalString, function (error, response, body) {
-      deferred.resolve(response) // Show the HTML for the Google homepage.
+      //deferred.resolve(response) // Show the HTML for the Google homepage.
+      deferred.resolve("df");
   });
 
   return deferred.promise
