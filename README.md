@@ -1,6 +1,7 @@
 # U8.connect
 
-> Immer die beste Verbindung
+## See our Devpost page for further information
+**[Devpost](https://devpost.com/software/u8-connect)**
 
 ### Looking for new friends, work opportunities or a date? Use your commuting time and connect with like-minded people!
 
